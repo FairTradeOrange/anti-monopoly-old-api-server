@@ -1,0 +1,99 @@
+package se2.project.antimonopoly.service;
+
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
+import se2.project.antimonopoly.entity.User;
+import se2.project.antimonopoly.repository.jpa.UserJPADAO;
+import se2.project.antimonopoly.repository.redis.UserRedisDAO;
+
+import java.util.List;
+
+
+/**
+ * Test -> Differenzierte Logik für Redis und PostgreSQL
+ */
+@Service
+public class UserManagementService implements UserRedisService, UserJPAService{
+
+    private static final String TABLE_NAME = "Users";
+
+    private RedisTemplate<String, Object> redisTemplate;
+
+    private HashOperations<String,Long,User> hashOperations;
+
+    private final UserJPARepository userJPADAO; // JPA Repository
+    private final UserRedisRepository userRedisDAO; // Redis Repository
+
+    @Autowired
+    public UserManagementService(UserJPARepository userRepository, UserRedisRepository userRedisDAO, RedisTemplate<String, Object> redisTemplate) {
+        this.userJPADAO = userRepository;
+        this.userRedisDAO = userRedisDAO;
+        this.redisTemplate = redisTemplate;
+
+    }
+
+    public User saveUser(User user) {
+        // Speichert den Benutzer in der relationalen Datenbank
+        //User savedInDb = userJPADAO.save(user);
+
+        // Konvertiert den Benutzer in ein Redis-Format, falls erforderlich, und speichert ihn in Redis
+        //userRedisDAO.save(user);
+
+        return null; //savedInDb; // Gibt den in der DB gespeicherten Benutzer zurück
+    }
+
+    @PostConstruct
+    private void intializeHashOperations() {
+        hashOperations = redisTemplate.opsForHash();
+    }
+
+    @Override
+    public List<User> getAll() {
+        return null;
+    }
+
+    @Override
+    public  void add(RedisUser user) {
+        hashOperations.put(TABLE_NAME, user.getId(), user);
+        //return getUserRepository().save(user);
+    }
+
+    @Override
+    public User update(User user) {
+        return null;
+    }
+
+    @Override
+    public void delete(long id) {
+
+    }
+
+    @Override
+    public  User getUserById(long id) {
+        return hashOperations.get(TABLE_NAME, id);
+        //return getUserRepository().findById(id);
+        //return null;
+    }
+}
+
+
+package se2.project.antimonopoly.service;
+
+import java.util.List;
+
+/**
+ * This class is a service for the User entity.
+ * @author ottzoeke
+ */
+public interface UserService  {
+
+    public List<User> getAll();
+    public void add(User user);
+    public User update(User user);
+    public void delete(long id);
+    public User getUserById(long id);
+}
+

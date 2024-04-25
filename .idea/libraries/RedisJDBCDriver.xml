@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="RedisJDBCDriver">
+    <CLASSES>
+      <root url="file://$USER_HOME$/Documents/Java/RedisJDBCDriver" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$USER_HOME$/Documents/Java/RedisJDBCDriver" recursive="false" />
+  </library>
+</component>

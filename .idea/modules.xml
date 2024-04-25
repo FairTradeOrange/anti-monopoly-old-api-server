@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/anti-monopoly/anti-monopoly.iml" filepath="$PROJECT_DIR$/anti-monopoly/anti-monopoly.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/anti-monopoly2.iml" filepath="$PROJECT_DIR$/.idea/anti-monopoly2.iml" />
+    </modules>
+  </component>
+</project>

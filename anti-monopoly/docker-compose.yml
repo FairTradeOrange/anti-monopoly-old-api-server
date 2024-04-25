@@ -1,0 +1,43 @@
+version: "3.8"
+services:
+  server:
+    build:
+      context: .
+    restart: on-failure
+    env_file: ./.env
+    container_name: app-server
+    depends_on:
+      - redis
+      - postgresdb
+    ports:
+      - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
+    environment:
+      SPRING_APPLICATION_JSON: '{
+         "spring.datasource.url"  : "jdbc:postgresql://postgresdb:$POSTGRESDB_DOCKER_PORT/$POSTGRESDB_DATABASE",
+         "spring.datasource.username" : "$POSTGRESDB_USER",
+         "spring.datasource.password" : "$POSTGRESDB_ROOT_PASSWORD",
+         "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.PostgreSQLDialect",
+         "hibernate.transaction.coordinator_class" : "jta",
+         "spring.jpa.hibernate.ddl-auto" : "update"
+       }'
+
+  redis:
+    image: 'redis/redis-stack-server:latest'
+    container_name: redis-backend
+    ports:
+      - '6379:6379'
+
+  postgresdb:
+    image: 'postgres:alpine'
+    container_name: db-backend
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - POSTGRES_USER=$POSTGRESDB_USER
+      - POSTGRES_PASSWORD=$POSTGRESDB_ROOT_PASSWORD
+      - POSTGRES_DB=$POSTGRESDB_DATABASE
+    ports:
+      - $POSTGRESDB_LOCAL_PORT:$POSTGRESDB_DOCKER_PORT
+volumes:
+  postgresdb:
+    driver: local

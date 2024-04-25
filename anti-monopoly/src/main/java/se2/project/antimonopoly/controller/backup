@@ -1,0 +1,77 @@
+package se2.project.antimonopoly.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.web.bind.annotation.*;
+import se2.project.antimonopoly.entity.User;
+import se2.project.antimonopoly.service.UserService;
+
+import java.util.List;
+
+
+/**
+ * This class is a controller for the User entity.
+ * RESTful API endpoints for CRUD operations on the User entity are defined here.
+ * HTTP-Requests are mapped to methods in this class.
+ * @author ottzoeke
+ */
+@RestController
+@CrossOrigin(methods = {RequestMethod.GET, RequestMethod.POST})
+public class UserController {
+
+
+    @Autowired
+    private UserService userService;
+
+    /*
+    private final UserDAO userDAO;
+
+    public UserController(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+
+     */
+
+    /**
+     * This method returns all users in the database.
+     * @return List of all users in the database
+     */
+    @GetMapping("/users")
+    public List<User> getAllUsers() {
+        return userService.getAll();
+    }
+
+    @PostMapping
+    public void saveUserInformation(@RequestBody User user) {
+        userService.add(user);
+    }
+
+    @RequestMapping("/users/create")
+    @ResponseBody
+    public String create(String name) {
+        User user = null;
+        try {
+            user = new User(name);
+            userService.add(user);
+        }
+        catch (Exception ex) {
+            return "Error creating the user: " + ex.toString();
+        }
+        return "User succesfully created! (id = " + user.getId() + ")";
+    }
+
+    @Cacheable(key="#id", value="users", unless = "#result.id < 1200")
+    @GetMapping(path = "/users/{id}")
+    public User fetchUser(@PathVariable("id") long id) {
+        return userService.getUserById(id);
+    }
+
+
+
+}
+
+
+
+
+
+

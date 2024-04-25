@@ -1,0 +1,6 @@
+Game-Assets
+- Spielfiguren
+- Grundstücke
+- Spielkarten
+- ( Modelle der Spielwelt )
+- ...

@@ -1,0 +1,47 @@
+package se2.project.antimonopoly.dao;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import se2.project.antimonopoly.entity.User;
+import se2.project.antimonopoly.repository.jpa.UserJPADAO;
+import se2.project.antimonopoly.repository.redis.UserRedisDAO;
+
+import java.util.List;
+
+/**
+ * This class is a Data Access Object (DAO) for the User entity.
+ * CRUD operations for the User entity are defined automatically by Spring.
+ * @author ottzoeke
+ */
+@Service
+public class UserDAO {
+
+    private final UserRedisRepository userRepository;
+    private final UserJPARepository userJPADAO;
+
+    // Konstruktor mit Autowired-Annotation für Dependency Injection
+    @Autowired
+    public UserDAO(UserRedisRepository userRepository, UserJPARepository userJPADAO) {
+        this.userRepository = userRepository;
+        this.userJPADAO = userJPADAO;
+    }
+
+
+     // OLD CODE:
+    public User save(User user) {
+        //return userRepository.save(user);
+        return null;
+    }
+
+    public void delete(User user) {
+        //userRepository.delete(user);
+    }
+
+    public List<User> getAllUsers() {
+        //return (List<User>) userRepository.findAll();
+        return null;
+    }
+
+
+
+}

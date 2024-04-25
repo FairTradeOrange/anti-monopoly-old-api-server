@@ -1,0 +1,52 @@
+package se2.project.antimonopoly.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NonNull;
+import org.springframework.data.redis.core.RedisHash;
+
+import java.io.Serializable;
+
+
+@Entity // --> PostgreSQL Test
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Data
+@Table(name = "users")
+@RedisHash("users")
+public class User implements Serializable {
+
+    @Id
+    @GeneratedValue
+    private long userID;
+
+    @NonNull
+    private String userName;
+
+    private Integer games_played;
+
+    public User(String userName){
+        this.userName = userName;
+        this.games_played = 0;
+    }
+
+    public User() {
+
+    }
+
+    public void setID(long id) {
+        this.userID = id;
+    }
+
+    public long getId() {
+        return userID;
+    }
+
+    public String getName(){
+        return userName;
+    }
+}

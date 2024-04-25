@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="se2-demo.aau.at" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="se2-demo.aau.at">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/deploy/anti-monopoly" local="$PROJECT_DIR$/anti-monopoly" web="/anti-monopoly/" />
+            <mapping deploy="/deploy" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

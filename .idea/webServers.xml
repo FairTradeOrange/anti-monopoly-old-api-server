@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="6b076c4d-e834-41f7-94e1-debf7fb81a5b" name="se2-demo.aau.at" url="http://se2-demo.aau.at:53215">
+        <fileTransfer rootFolder="/home/grp-11/java" accessType="SFTP" host="se2-demo.aau.at" port="53200" sshConfigId="ada5702f-f12c-456a-9500-be7bdec787e2" sshConfig="grp-11@se2-demo.aau.at:53200 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
